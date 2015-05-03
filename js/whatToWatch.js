@@ -12,13 +12,33 @@
         $(document).ready(function() {
             geocoder = new google.maps.Geocoder();
             getLocation();
-            $('.nextButton').hide();
+            $('#rated').hide();
+            /*
+             * Add event listeners to buttons
+             */
+            $('#button1').click(function() {
+              outputToScreen(moviesArray[movieNamesArray.length-1]);
+              changeClass('1');
+            });
+            $('#button2').click(function() {
+              outputToScreen(moviesArray[movieNamesArray.length-2]);
+              changeClass('2');
+            });
+            $('#button3').click(function() {
+              outputToScreen(moviesArray[movieNamesArray.length-3]);
+              changeClass('3');
+            });
+
         });
 
-        $( ".nextButton" ).click(function() {
-          console.log('hi');
-          getHighestRated();
-        });
+        /*
+         * Change the class of the buttons
+         */
+        function changeClass(val) {
+          $('.hierarchyBtn').removeClass('selected');
+          $('#button'+val).addClass('selected');
+
+        }
 
         //get Users Location
         function getLocation() {
@@ -80,7 +100,6 @@
         function buildMovieObject(data) {
             var divs, movieResults, movieObj, movieObjLeft, movieObjRight;
             divs = data.query.results.body.div;
-            console.log(data);
             /*
              * Looping through the google.com/movies website, and build up an object
              */
@@ -117,27 +136,27 @@
 
         }
         /*
+         * Create a compare function which orders the array
+         */
+         function compare(a,b) {
+            if (a.imdbRating < b.imdbRating || isNaN(a.imdbRating))
+               return -1;
+            if (a.imdbRating > b.imdbRating)
+              return 1;
+            return 0;
+          }
+
+        /*
          * function to get the highest rated film and next highest rated depending on the parameters passed in.
          */
 
-         function getHighestRated() {
+         function getHighestRated(rating) {
             var largest, rating;
             largest = 0;
+            moviesArray.sort(compare);
             if (moviesArray.length === movieNamesArray.length) {
-                    $.each(moviesArray, function(index, movie) {
-                        rating = movie.imdbRating;
-                        if (rating > largest && !isNaN(rating) && movie.Title !== movieResult.Title) {
-
-                            largest = movie.imdbRating;
-                             movieResult = movie; 
-                        }
-                    });
-                    /*
-                     * Once we have the higest rated movie pass it to our last function to output to the screen
-                     */
-                     outputToScreen(movieResult);
-                     
-                }
+              outputToScreen(moviesArray[movieNamesArray.length-1]);
+            }
          }
 
         /*
@@ -158,18 +177,16 @@
         m = p_movieResult;
         image = m.Poster;
         time = '20:30';
-        console.log(m);
+             $('#left').empty();
+             $('#right').empty();
              $('#left').append('<h2> What? </h2>');
              $('#left').append('<h3>' + m.Title + '</h3>');
              $('#left').append('<h2> Where? </h2>');
              $('#left').append('<h3>' +  cinemaName + '</h3>');
-             $('#left').append('<h2> When? </h2>');
-             $('#left').append('<h3>' +  time + '</h3>');
+             $('#left').append('<h2> Rating? </h2>');
+             $('#left').append('<h3>' + m.imdbRating + '</h3>');
              $('#right').append('<img src = "' + image + '">');
-             $('#right').append('<img src = "' + image + '">');
-             $('.nextButton').show();
-
-
-
+             $('#rated').show();
+             changeClass('1');
 
         }    

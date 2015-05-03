@@ -37,3 +37,14 @@ h3 {
 	width: 100%;
 	background-color: blue;
 }
+.hierarchyBtn {
+    width: 38px;
+    border: none;
+    height: 30px;
+    margin-left: 13px;
+    background: white;
+}
+.selected {
+    background: rgb(85, 183, 241);
+    color: white;
+}
