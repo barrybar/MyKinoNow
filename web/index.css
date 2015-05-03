@@ -1,0 +1,39 @@
+body {
+	background-color: #0F2E74;
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+}
+section {
+    width: 80%;
+    height: 430;
+    margin: auto;
+    padding: 58px;
+}
+div#left {
+    margin-left: 10%;
+    height: 800px;
+    width: 40%;
+    float: left;
+    text-align: centre;
+}
+div#right {
+    width: 31%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    float: left;
+    margin-left: 0px;
+    text-align: center;
+}
+h2 {
+  font-size: 42px;
+}
+h3 {
+	color: #2ca8d2;
+	max-width: 300px;
+}
+#top {
+	text-align: center;
+	color: rgb(254, 225, 65);
+	width: 100%;
+	background-color: blue;
+}
